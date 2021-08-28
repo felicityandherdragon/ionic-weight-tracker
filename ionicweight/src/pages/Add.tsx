@@ -34,7 +34,25 @@ const Add: React.FC<AddProps> = ({ measures, setMeasures }) => {
             <IonBackButton text='Measures' defaultHref='/home'></IonBackButton>
           </IonButtons>
           <IonButtons slot='end'>
-            <IonButton>Save</IonButton>
+            <IonButton onClick={() => {
+              setMeasures([
+                ...measures,
+                {
+                  weight: measure,
+                  id: Math.max.apply(
+                    Math,
+                    measures.map((item) => parseInt(item.weight))
+                  ),
+                  date:
+                    today.getDate() +
+                    ' ' +
+                    today.toLocaleString('default', { month: 'short' }),
+                },
+              ])
+              history.push('/home')
+            }}>
+              Save
+            </IonButton>
           </IonButtons>
         </IonToolbar>
       </IonHeader>
